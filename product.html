@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product | AURIX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Cormorant Garamond', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="font-body bg-[#f8f7f4] text-[#0a0a0a] antialiased selection:bg-black selection:text-white">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-spinner mb-8"></div>
+    <h1 class="font-display text-4xl tracking-[0.3em] uppercase">Aurix</h1>
+    <p class="text-xs tracking-[0.4em] uppercase mt-3 text-gray-400">Chrome Noir</p>
+  </div>
+
+  <!-- Floating Objects -->
+  <div class="floating-objects-container fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="chrome-orb w-24 h-24 top-[20%] right-[10%] animate-float-slow opacity-30"></div>
+    <div class="chrome-orb w-16 h-16 bottom-[30%] left-[8%] animate-float opacity-25" style="animation-delay: 3s;"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="navbar-pill fixed top-6 left-1/2 -translate-x-1/2 z-50 glass rounded-full px-4 lg:px-8 py-3 flex items-center justify-between gap-4 lg:gap-12 w-[calc(100%-2rem)] max-w-4xl transition-all duration-500">
+    <button id="mobile-menu-btn" class="lg:hidden p-2 -ml-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+      </svg>
+    </button>
+    <a href="index.html" class="font-display text-2xl font-semibold tracking-wider shrink-0">AURIX</a>
+    <div class="hidden lg:flex items-center gap-8">
+      <a href="index.html#hero" class="text-xs font-medium tracking-widest uppercase hover:opacity-60 transition-opacity">Home</a>
+      <a href="index.html#shop" class="text-xs font-medium tracking-widest uppercase hover:opacity-60 transition-opacity">Shop</a>
+      <a href="index.html#new" class="text-xs font-medium tracking-widest uppercase hover:opacity-60 transition-opacity">About</a>
+      <a href="index.html#footer" class="text-xs font-medium tracking-widest uppercase hover:opacity-60 transition-opacity">Contact</a>
+    </div>
+    <div class="flex items-center gap-3 lg:gap-5">
+      <a href="index.html#shop" class="p-2 hover:opacity-60 transition-opacity">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+        </svg>
+      </a>
+      <button class="p-2 hover:opacity-60 transition-opacity relative">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+        </svg>
+        <span id="wishlist-count" class="absolute -top-1 -right-1 w-4 h-4 bg-black text-white text-[10px] rounded-full flex items-center justify-center font-semibold">0</span>
+      </button>
+      <button onclick="openCart()" class="p-2 hover:opacity-60 transition-opacity relative">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"/>
+        </svg>
+        <span id="cart-count" class="absolute -top-1 -right-1 w-4 h-4 bg-black text-white text-[10px] rounded-full flex items-center justify-center font-semibold">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden fixed top-24 left-4 right-4 z-40 glass-strong rounded-2xl p-6 lg:hidden">
+    <div class="flex flex-col gap-4">
+      <a href="index.html#hero" class="text-sm font-medium tracking-widest uppercase py-2 border-b border-gray-100">Home</a>
+      <a href="index.html#shop" class="text-sm font-medium tracking-widest uppercase py-2 border-b border-gray-100">Shop</a>
+      <a href="index.html#new" class="text-sm font-medium tracking-widest uppercase py-2 border-b border-gray-100">About</a>
+      <a href="index.html#footer" class="text-sm font-medium tracking-widest uppercase py-2">Contact</a>
+    </div>
+  </div>
+
+  <!-- Product Detail Content -->
+  <main class="pt-32 pb-20 lg:pt-40 lg:pb-32">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+      <!-- Breadcrumb -->
+      <div class="flex items-center gap-2 text-xs text-gray-400 mb-8 tracking-wider uppercase">
+        <a href="index.html" class="hover:text-black transition-colors">Home</a>
+        <span>/</span>
+        <a href="index.html#shop" class="hover:text-black transition-colors">Shop</a>
+        <span>/</span>
+        <span id="breadcrumb-name" class="text-black">Product</span>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+        <!-- Image Gallery -->
+        <div class="space-y-4">
+          <div class="aspect-[4/5] rounded-3xl overflow-hidden bg-gray-100 relative">
+            <img id="main-image" src="" alt="" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+          </div>
+          <div id="thumbnail-container" class="flex gap-3">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="flex flex-col">
+          <div id="product-badge-container" class="mb-4">
+            <!-- Injected by JS -->
+          </div>
+          <h1 id="product-name" class="font-display text-4xl lg:text-6xl font-medium mb-4">Product Name</h1>
+          <div class="flex items-center gap-4 mb-6">
+            <span id="product-price" class="text-2xl lg:text-3xl font-semibold">$0</span>
+            <div class="flex items-center gap-1">
+              <div id="product-stars" class="flex"></div>
+              <span id="product-reviews" class="text-sm text-gray-500">(0 reviews)</span>
+            </div>
+          </div>
+
+          <p id="product-description" class="text-gray-600 leading-relaxed mb-8">Description</p>
+
+          <div class="mb-6">
+            <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3 block">Color</label>
+            <div id="color-selector" class="flex gap-2">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3 block">Size</label>
+            <div id="size-selector" class="flex gap-2 flex-wrap">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <div class="mb-8">
+            <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3 block">Quantity</label>
+            <div class="qty-stepper inline-flex rounded-xl overflow-hidden">
+              <button onclick="updateQty(-1)" class="hover:bg-gray-100">-</button>
+              <input type="number" id="detail-qty" value="1" min="1" readonly>
+              <button onclick="updateQty(1)" class="hover:bg-gray-100">+</button>
+            </div>
+            <span id="product-stock" class="text-sm text-gray-500 ml-4">0 in stock</span>
+          </div>
+
+          <div class="flex gap-3 mb-10">
+            <button onclick="addToCartFromPage()" class="flex-1 btn-primary btn-magnetic py-4 rounded-full text-xs tracking-widest uppercase">
+              Add to Cart
+            </button>
+            <button onclick="buyNowFromPage()" class="flex-1 btn-chrome btn-magnetic py-4 rounded-full text-xs tracking-widest uppercase font-semibold">
+              Buy Now
+            </button>
+            <button onclick="toggleWishlistFromPage()" id="page-wishlist-btn" class="w-14 h-14 rounded-full glass flex items-center justify-center hover:bg-black hover:text-white transition-colors shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Product Meta -->
+          <div class="border-t border-gray-100 pt-6 space-y-3">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">SKU</span>
+              <span id="product-sku" class="font-mono">AUR-001</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Category</span>
+              <span id="product-category" class="capitalize">-</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Shipping</span>
+              <span>Free over $200</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews Section -->
+      <div class="mt-20 lg:mt-32">
+        <h2 class="font-display text-3xl lg:text-4xl font-medium mb-10">Customer Reviews</h2>
+        <div id="page-reviews" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Related Products -->
+      <div class="mt-20 lg:mt-32">
+        <h2 class="font-display text-3xl lg:text-4xl font-medium mb-10">You May Also Like</h2>
+        <div id="related-products" class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="glass-strong border-t border-white/30">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+        <div class="lg:col-span-1">
+          <h3 class="font-display text-3xl font-medium mb-4">AURIX</h3>
+          <p class="text-sm text-gray-500 leading-relaxed mb-6">
+            Chrome noir luxury streetwear for the avant-garde. Crafted between shadow and light.
+          </p>
+          <div class="flex gap-4">
+            <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-black hover:text-white transition-all">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-black hover:text-white transition-all">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-black hover:text-white transition-all">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.88-2.89 2.89 2.89 0 012.88-2.88c.26 0 .51.04.75.1V9.4a6.36 6.36 0 00-.75-.05A6.34 6.34 0 005.5 15.69a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.35a8.23 8.23 0 004.83 1.55V6.69h-.42z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-widest mb-6">Shop</h4>
+          <ul class="space-y-3">
+            <li><a href="index.html#shop" class="text-sm text-gray-500 hover:text-black transition-colors">New Arrivals</a></li>
+            <li><a href="index.html#shop" class="text-sm text-gray-500 hover:text-black transition-colors">Hoodies</a></li>
+            <li><a href="index.html#shop" class="text-sm text-gray-500 hover:text-black transition-colors">Outerwear</a></li>
+            <li><a href="index.html#shop" class="text-sm text-gray-500 hover:text-black transition-colors">Accessories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-widest mb-6">Support</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-sm text-gray-500 hover:text-black transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-sm text-gray-500 hover:text-black transition-colors">Shipping Info</a></li>
+            <li><a href="#" class="text-sm text-gray-500 hover:text-black transition-colors">Returns</a></li>
+            <li><a href="#" class="text-sm text-gray-500 hover:text-black transition-colors">Size Guide</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-widest mb-6">Newsletter</h4>
+          <p class="text-sm text-gray-500 mb-4">Subscribe for exclusive drops and early access.</p>
+          <form onsubmit="event.preventDefault(); alert('Subscribed!');" class="flex gap-2">
+            <input type="email" placeholder="Your email" required class="glass-input rounded-xl flex-1 text-sm">
+            <button type="submit" class="px-5 py-3 bg-black text-white rounded-xl text-xs font-medium tracking-wider uppercase hover:bg-gray-800 transition-colors">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-gray-400">&copy; 2026 AURIX. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="text-xs text-gray-400 hover:text-black transition-colors">Privacy Policy</a>
+          <a href="#" class="text-xs text-gray-400 hover:text-black transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div id="cart-overlay" class="cart-overlay" onclick="closeCart()"></div>
+  <div id="cart-drawer" class="cart-drawer glass-strong flex flex-col">
+    <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+      <h3 class="font-display text-2xl font-medium">Your Cart</h3>
+      <button onclick="closeCart()" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-black hover:text-white transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+    <div class="p-6 border-t border-gray-100 space-y-4">
+      <div class="flex justify-between items-center">
+        <span class="text-sm text-gray-500">Subtotal</span>
+        <span id="cart-subtotal" class="font-semibold text-lg">$0.00</span>
+      </div>
+      <button onclick="openCheckout()" class="w-full btn-chrome btn-magnetic py-4 rounded-full text-sm tracking-widest uppercase font-semibold">Proceed to Checkout</button>
+      <button onclick="closeCart()" class="w-full text-center text-xs tracking-widest uppercase underline hover:no-underline transition-all py-2">Continue Shopping</button>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="checkout-modal">
+    <div class="checkout-modal-overlay" onclick="closeCheckout()"></div>
+    <div class="checkout-modal-content glass-strong rounded-3xl overflow-hidden">
+      <div class="p-6 lg:p-10 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h3 class="font-display text-3xl font-medium">Checkout</h3>
+            <p class="text-sm text-gray-500 mt-1">Order ID: <span id="checkout-order-id" class="font-mono">---</span></p>
+          </div>
+          <button onclick="closeCheckout()" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-black hover:text-white transition-colors shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="mb-8 p-6 glass-card rounded-2xl">
+          <h4 class="text-xs font-semibold uppercase tracking-widest mb-4">Order Summary</h4>
+          <div id="checkout-summary" class="space-y-2"></div>
+          <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+            <span class="font-semibold">Total</span>
+            <span id="checkout-total" class="font-display text-2xl font-medium">$0.00</span>
+          </div>
+        </div>
+        <form onsubmit="submitCheckout(event)" class="space-y-6">
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-widest mb-4">Customer Information</h4>
+            <div class="grid md:grid-cols-2 gap-4">
+              <input type="text" placeholder="Full Name" required class="glass-input rounded-xl">
+              <input type="email" placeholder="Email Address" required class="glass-input rounded-xl">
+              <input type="tel" placeholder="Phone Number" required class="glass-input rounded-xl md:col-span-2">
+            </div>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-widest mb-4">Delivery Address</h4>
+            <div class="grid md:grid-cols-2 gap-4">
+              <input type="text" placeholder="District" required class="glass-input rounded-xl">
+              <input type="text" placeholder="Thana / Upazila" required class="glass-input rounded-xl">
+              <input type="text" placeholder="Area Name" required class="glass-input rounded-xl">
+              <input type="text" placeholder="ZIP Code" required class="glass-input rounded-xl">
+              <input type="text" placeholder="House Number" class="glass-input rounded-xl">
+              <input type="text" placeholder="Sector / Block" class="glass-input rounded-xl">
+              <input type="text" placeholder="Post Office" class="glass-input rounded-xl">
+              <input type="text" placeholder="Road Number" class="glass-input rounded-xl">
+            </div>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-widest mb-4">Payment Method</h4>
+            <div class="space-y-3">
+              <label class="flex items-center gap-3 p-4 glass-card rounded-xl cursor-pointer hover:border-black/20 transition-colors">
+                <input type="radio" name="payment" value="bkash" class="w-4 h-4 accent-black">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-pink-500 flex items-center justify-center text-white font-bold text-xs">bK</div>
+                  <div>
+                    <p class="font-medium text-sm">bKash</p>
+                    <p class="text-xs text-gray-500">Mobile banking</p>
+                  </div>
+                </div>
+              </label>
+              <label class="flex items-center gap-3 p-4 glass-card rounded-xl cursor-pointer hover:border-black/20 transition-colors">
+                <input type="radio" name="payment" value="cod" checked class="w-4 h-4 accent-black">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="font-medium text-sm">Cash on Delivery</p>
+                    <p class="text-xs text-gray-500">Pay when you receive</p>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="w-full btn-chrome btn-magnetic py-5 rounded-full text-sm tracking-widest uppercase font-semibold animate-glow">Place Order</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Product page specific logic
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = parseInt(urlParams.get('id')) || 1;
+    let currentProduct = null;
+    let selectedSize = '';
+    let selectedColor = '';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProduct(productId);
+      initCart();
+      initWishlist();
+      initNavbar();
+      initMobileMenu();
+      initLoadingScreen();
+      initCursorGlow();
+    });
+
+    function loadProduct(id) {
+      currentProduct = products.find(p => p.id === id);
+      if (!currentProduct) {
+        currentProduct = products[0];
+      }
+
+      // Update page content
+      document.getElementById('breadcrumb-name').textContent = currentProduct.name;
+      document.getElementById('product-name').textContent = currentProduct.name;
+      document.getElementById('product-price').textContent = '$' + currentProduct.price;
+      document.getElementById('product-description').textContent = currentProduct.description;
+      document.getElementById('product-stock').textContent = currentProduct.stock + ' in stock';
+      document.getElementById('product-sku').textContent = 'AUR-' + String(currentProduct.id).padStart(3, '0');
+      document.getElementById('product-category').textContent = currentProduct.category;
+      document.getElementById('product-reviews').textContent = '(' + currentProduct.reviews + ' reviews)';
+      document.getElementById('main-image').src = currentProduct.images[0];
+      document.getElementById('main-image').alt = currentProduct.name;
+
+      // Badge
+      const badgeContainer = document.getElementById('product-badge-container');
+      if (currentProduct.badge) {
+        badgeContainer.innerHTML = '<span class="badge-new">' + currentProduct.badge + '</span>';
+      } else {
+        badgeContainer.innerHTML = '';
+      }
+
+      // Stars
+      document.getElementById('product-stars').innerHTML = renderStars(currentProduct.rating);
+
+      // Thumbnails
+      const thumbContainer = document.getElementById('thumbnail-container');
+      thumbContainer.innerHTML = currentProduct.images.map((img, i) => `
+        <button onclick="changeMainImage('${img}', this)" class="w-20 h-20 rounded-xl overflow-hidden border-2 ${i === 0 ? 'border-black' : 'border-transparent'} transition-all hover:border-black">
+          <img src="${img}" class="w-full h-full object-cover">
+        </button>
+      `).join('');
+
+      // Colors
+      selectedColor = currentProduct.colors[0];
+      const colorContainer = document.getElementById('color-selector');
+      colorContainer.innerHTML = currentProduct.colors.map((color, i) => `
+        <button onclick="selectPageColor(this, '${color}')" class="selector-option ${i === 0 ? 'active' : ''} rounded-lg text-xs py-2 px-4" data-color="${color}">${color}</button>
+      `).join('');
+
+      // Sizes
+      selectedSize = currentProduct.sizes[0];
+      const sizeContainer = document.getElementById('size-selector');
+      sizeContainer.innerHTML = currentProduct.sizes.map((size, i) => `
+        <button onclick="selectPageSize(this, '${size}')" class="selector-option ${i === 0 ? 'active' : ''} rounded-lg text-xs py-2 px-4 w-12 text-center" data-size="${size}">${size}</button>
+      `).join('');
+
+      // Wishlist button state
+      updatePageWishlistBtn();
+
+      // Reviews
+      renderPageReviews();
+
+      // Related products
+      renderRelatedProducts();
+    }
+
+    function changeMainImage(src, btn) {
+      document.getElementById('main-image').src = src;
+      document.querySelectorAll('#thumbnail-container button').forEach(b => {
+        b.classList.remove('border-black');
+        b.classList.add('border-transparent');
+      });
+      btn.classList.remove('border-transparent');
+      btn.classList.add('border-black');
+    }
+
+    function selectPageColor(btn, color) {
+      selectedColor = color;
+      btn.parentElement.querySelectorAll('.selector-option').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function selectPageSize(btn, size) {
+      selectedSize = size;
+      btn.parentElement.querySelectorAll('.selector-option').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function updateQty(change) {
+      const input = document.getElementById('detail-qty');
+      let val = parseInt(input.value) + change;
+      if (val < 1) val = 1;
+      if (currentProduct && val > currentProduct.stock) val = currentProduct.stock;
+      input.value = val;
+    }
+
+    function addToCartFromPage() {
+      if (!currentProduct) return;
+      const qty = parseInt(document.getElementById('detail-qty').value);
+      addToCart(currentProduct, qty, selectedSize, selectedColor);
+    }
+
+    function buyNowFromPage() {
+      addToCartFromPage();
+      setTimeout(() => {
+        closeCart();
+        openCheckout();
+      }, 400);
+    }
+
+    function toggleWishlistFromPage() {
+      if (!currentProduct) return;
+      toggleWishlist(currentProduct.id);
+      updatePageWishlistBtn();
+    }
+
+    function updatePageWishlistBtn() {
+      const btn = document.getElementById('page-wishlist-btn');
+      if (!btn || !currentProduct) return;
+      const isActive = wishlist.includes(currentProduct.id);
+      btn.classList.toggle('bg-black', isActive);
+      btn.classList.toggle('text-white', isActive);
+      btn.querySelector('svg').style.fill = isActive ? 'currentColor' : 'none';
+    }
+
+    function renderPageReviews() {
+      const container = document.getElementById('page-reviews');
+      container.innerHTML = reviews.map(review => `
+        <div class="testimonial-card p-6 rounded-2xl">
+          <div class="flex items-center gap-1 mb-4">${renderStars(review.rating)}</div>
+          <p class="text-gray-700 leading-relaxed mb-4 text-sm">"${review.text}"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-semibold text-xs">${review.avatar}</div>
+            <div>
+              <p class="font-medium text-sm">${review.name}</p>
+              <p class="text-xs text-gray-500">${review.date}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderRelatedProducts() {
+      const container = document.getElementById('related-products');
+      const related = products.filter(p => p.id !== currentProduct.id).slice(0, 4);
+      container.innerHTML = related.map(p => `
+        <a href="product.html?id=${p.id}" class="group">
+          <div class="aspect-product rounded-2xl overflow-hidden bg-gray-100 mb-3">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          </div>
+          <h4 class="font-medium text-sm mb-1">${p.name}</h4>
+          <p class="text-sm text-gray-500">$${p.price}</p>
+        </a>
+      `).join('');
+    }
+  </script>
+</body>
+</html>
